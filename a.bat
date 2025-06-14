@@ -26,7 +26,7 @@ if exist "D:\Duan\1log\protect_run.txt" (
     ) else (
         echo File main2.pyw da ton tai.
     )
-    start "" "D:\Duan\2s_home\main2.pyw"
+    start "" cmd /c "cd /d D:\Duan\2s_home && pythonw main2.pyw > output2.log 2> error2.log"
     if not exist "D:\Duan\2s_home\main1.pyw" (
         echo File main1.pyw khong ton tai, dang copy file backup...
         copy "D:\Duan\2s_home\backup\main1.pyw" "D:\Duan\2s_home\main1.pyw"
@@ -34,7 +34,7 @@ if exist "D:\Duan\1log\protect_run.txt" (
         echo File main1.pyw da ton tai.
     )
     cls
-    start "" "D:\Duan\2s_home\main1.pyw"
+    start "" cmd /c "cd /d D:\Duan\2s_home && pythonw main1.pyw > output1.log 2> error1.log"
     if exist "D:\Duan\2s_home\prog_add.pyw" (
         start "" "D:\Duan\2s_home\prog_add.pyw"
     ) else (
