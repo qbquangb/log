@@ -35,7 +35,7 @@ def check_and_download():
 				file.writelines(lines)
 				file.close()
 
-			return False
+			return False # Không có email mới
 
 		for email_id in email_ids:
 			status, data = mail.fetch(email_id, '(RFC822)')
@@ -59,14 +59,14 @@ def check_and_download():
 			mail.store(email_id, '+FLAGS', '\\Seen')
 
 		mail.logout()
-		return True
+		return True # Đã tải xuống thành công
 	except BaseException as e:
 		print(f"Đã xảy ra lỗi khi kiểm tra email: {e}")
 		with open("boot_config.txt", "w", encoding="utf-8") as file:
 			lines = ["off\n", "off\n", "off"]
 			file.writelines(lines)
 			file.close()
-		return False
+		return False # Lỗi khi kiểm tra email
 
 def is_connected():
 	try:
