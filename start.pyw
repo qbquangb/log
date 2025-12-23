@@ -4,6 +4,7 @@ import os
 import subprocess
 from time import sleep
 import socket
+import time
 
 # Cấu hình thông tin đăng nhập Gmail
 USERNAME = 'qbquangbinh@gmail.com'
@@ -11,6 +12,9 @@ PASSWORD = os.getenv("PASS_EMAIL") # Nếu dùng xác thực 2 bước, hãy s�
 
 IMAP_SERVER = 'imap.gmail.com'
 IMAP_PORT = 993
+
+TIMEOUT_SECONDS = 40 # Thời gian chờ tối đa cho kết nối mạng
+isConnected = True
 
 def check_and_download():
 	try:
@@ -112,13 +116,26 @@ def clean_boot_config(file_path):
 			file.close()
 
 if __name__ == "__main__":
+	file_path = "boot_config.txt"
+	start = time.time()
 	while not is_connected():
+		elapsed = time.time() - start
+		if elapsed >= TIMEOUT_SECONDS:
+			isConnected = False
+			with open("boot_config.txt", "w", encoding="utf-8") as file:
+				lines = ["off\n", "off\n", "off"]
+				file.writelines(lines)
+				file.close()
+			break
 		print("Không có kết nối mạng. Đang chờ...")
 		sleep(5)
-	print("Đã kết nối mạng.")
-	file_path = "boot_config.txt"
-	if check_and_download():
-		clean_boot_config(file_path)
+	if not isConnected:
+		print(f"Không có kết nối mạng sau {TIMEOUT_SECONDS}s")
+	else:
+		print("Đã kết nối mạng.")
+	if isConnected:
+		if check_and_download():
+			clean_boot_config(file_path)
 
 	remove_files = ["log_run.txt", "protect_run.txt", "assistant_run.txt"]
 	for file in remove_files:
