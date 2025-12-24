@@ -11,7 +11,7 @@ if exist "D:\Duan\1log\log_run.txt" (
 if exist "D:\Duan\1log\protect_run.txt" (
     cd /d D:\Duan\2s_home
     cls
-    start /wait "" "D:\Duan\2s_home\check_mail.pyw"
+    start /wait "" "C:\Users\Hii\AppData\Local\Programs\Python\Python310\pythonw.exe" "D:\Duan\2s_home\check_mail.pyw"
     cls
     if not exist "D:\Duan\2s_home\response.pyw" (
         echo File response.pyw khong ton tai, dang copy file backup...
