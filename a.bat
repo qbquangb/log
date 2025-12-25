@@ -45,9 +45,20 @@ if exist "D:\Duan\1log\protect_run.txt" (
 cls
 :: -----------------------------------------------------------------------------------
 if exist "D:\Duan\1log\prog_add.txt" (
-    echo chay file prog_add.pyw
-    start "" "D:\Duan\2s_home\prog_add.pyw"
-) else (
-    echo Không tim thay file prog_add.pyw, không chạy file prog_add.pyw.
+
+    cd /d D:\Duan\2s_home
+    cls
+    start /wait "" "C:\Users\Hii\AppData\Local\Programs\Python\Python310\pythonw.exe" "D:\Duan\2s_home\check_mail.pyw"
+    cls
+    :: Tạm dừng 10 giây để đảm bảo check_mail.pyw hoàn thành
+    timeout /t 10 /nobreak >nul
+
+    if exist "D:\Duan\2s_home\prog_add.pyw" (
+        start /wait "" "C:\Users\Hii\AppData\Local\Programs\Python\Python310\pythonw.exe" "D:\Duan\2s_home\prog_add.pyw"
+        :: Tạm dừng 3 phút để đảm bảo prog_add.pyw hoàn thành
+        timeout /t 180 /nobreak >nul
+    :: Tắt máy tính
+    shutdown /s /f /t 0
+)
 )
 :: -----------------------------------------------------------------------------------
