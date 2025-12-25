@@ -5,6 +5,17 @@ import subprocess
 from time import sleep
 import socket
 import time
+import ctypes
+import sys
+
+def run_as_admin():
+	if ctypes.windll.shell32.IsUserAnAdmin():
+		return True
+	else:
+		ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+		sys.exit()
+
+run_as_admin()
 
 # Cấu hình thông tin đăng nhập Gmail
 USERNAME = 'qbquangbinh@gmail.com'
@@ -157,4 +168,4 @@ if __name__ == "__main__":
 		with open("assistant_run.txt", "w", encoding="utf-8") as assistant_file:
 			assistant_file.write("on")
 
-	subprocess.run(["a.bat"], shell=True)
+	subprocess.run("a.bat", shell=True)

@@ -5,6 +5,19 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from time import sleep
 import os
+import socket
+import time
+
+TIMEOUT_SECONDS = 40 # Thời gian chờ tối đa cho kết nối mạng
+isConnected = True
+
+def is_connected():
+	try:
+		# Kiểm tra kết nối tới máy chủ DNS của Google
+		socket.create_connection(("8.8.8.8", 53), timeout=5)
+		return True
+	except:
+		return False
 
 def auto_email():
 	smtp_server = "smtp.gmail.com"
@@ -36,6 +49,21 @@ def auto_email():
 	server.quit()
 	return
 
-while True:
-	sleep(1200)
-	auto_email()
+start = time.time()
+while not is_connected():
+	elapsed = time.time() - start
+	if elapsed >= TIMEOUT_SECONDS:
+		isConnected = False
+		break
+	print("Không có kết nối mạng. Đang chờ...")
+	sleep(5)
+if not isConnected:
+	print(f"Không có kết nối mạng sau {TIMEOUT_SECONDS}s")
+else:
+	print("Đã kết nối mạng.")
+
+if isConnected:
+	while True:
+
+		sleep(1200)
+		auto_email()
