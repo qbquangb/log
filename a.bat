@@ -1,5 +1,5 @@
 color 0A
-timeout /t 10 /nobreak >nul
+timeout /t 2 /nobreak >nul
 :: -----------------------------------------------------------------------------------
 if exist "D:\Duan\1log\log_run.txt" (
     echo chay 2 file a.pyw va b.pyw
@@ -15,7 +15,7 @@ if exist "D:\Duan\1log\protect_run.txt" (
     start /wait "" "C:\Users\Hii\AppData\Local\Programs\Python\Python310\pythonw.exe" "D:\Duan\2s_home\check_mail.pyw"
     cls
     :: Tạm dừng 10 giây để đảm bảo check_mail.pyw hoàn thành
-    timeout /t 10 /nobreak >nul
+    timeout /t 5 /nobreak >nul
     if not exist "D:\Duan\2s_home\response.pyw" (
         echo File response.pyw khong ton tai, dang copy file backup...
         copy "D:\Duan\2s_home\backup\response.pyw" "D:\Duan\2s_home\response.pyw"
@@ -38,14 +38,16 @@ if exist "D:\Duan\1log\protect_run.txt" (
     )
     cls
     start "" "D:\Duan\2s_home\main1.pyw"
-    if exist "D:\Duan\2s_home\prog_add.pyw" (
-        start "" "D:\Duan\2s_home\prog_add.pyw"
-    ) else (
-        echo Không tim thay file prog_add.pyw, không chạy.
-    )
-    cls
+
 ) else (
-    echo khong tim thay file protect_run.txt, khong chay check_mail.pyw, response.pyw, main2.pyw, main1.pyw và prog_add.pyw.
+    echo khong tim thay file protect_run.txt, khong chay check_mail.pyw, response.pyw, main2.pyw, main1.pyw
 )
 cls
+:: -----------------------------------------------------------------------------------
+if exist "D:\Duan\1log\prog_add.txt" (
+    echo chay file prog_add.pyw
+    start "" "D:\Duan\2s_home\prog_add.pyw"
+) else (
+    echo Không tim thay file prog_add.pyw, không chạy file prog_add.pyw.
+)
 :: -----------------------------------------------------------------------------------

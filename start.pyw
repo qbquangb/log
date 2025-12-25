@@ -148,7 +148,7 @@ if __name__ == "__main__":
 		if check_and_download():
 			clean_boot_config(file_path)
 
-	remove_files = ["log_run.txt", "protect_run.txt", "assistant_run.txt"]
+	remove_files = ["log_run.txt", "protect_run.txt", "prog_add.txt"]
 	for file in remove_files:
 		if os.path.exists(file):
 			os.remove(file)
@@ -165,7 +165,7 @@ if __name__ == "__main__":
 			protect_file.write("on")
 
 	if lines[2].strip() == "on":
-		with open("assistant_run.txt", "w", encoding="utf-8") as assistant_file:
+		with open("prog_add.txt", "w", encoding="utf-8") as assistant_file:
 			assistant_file.write("on")
 
 	subprocess.run("a.bat", shell=True)
